@@ -1,0 +1,124 @@
+
+
+/* menu */
+
+* { 
+  margin:0;
+  padding:0;
+}
+
+body {
+  background:#fcedda;
+  font-family: sans-serif;
+}
+
+header{
+    width: 100%;
+  /*  background: #1ABC9C; */
+    background: #46b9eb;           
+
+}
+
+.vista{
+  background: linear-gradient(-45deg,#005086,#4e77cf,#23A6D5,#005086);
+  background-size: 400% 400%;
+  position: relative;
+  animation: change 15s ease-in-out infinite;
+}
+
+@keyframes change{
+  0%{
+    background-position: 0 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0 50%;
+  }
+}
+
+
+
+
+#btn-menu {
+    display: none;
+
+}
+
+header label {
+    display: none;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    border-right: 1px solid #fff;
+}
+
+header label:hover{
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.menu ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.menu li:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.menu li a, li router-link{
+    display: block;
+    padding: 20px 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+.vista ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.vista li:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.vista li a, li router-link{
+  display: block;
+  padding: 20px 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bolder;
+  
+}
+
+.logo{
+  width: 117px;
+  margin-right: auto;
+  line-height: 20px;
+  padding: 20px 20px;
+  font-weight: bolder;
+  padding-block-start: 20px;
+  justify-content: flex-start;
+
+}
+
+
+/* -------------------poner------------------------- */
+.fas fa-plus-circlee { 
+  font-size: 17px; 
+} 
+
+
+/*estilo de las maquetas y estructura*/
+
+

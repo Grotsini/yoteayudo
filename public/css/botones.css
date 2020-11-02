@@ -1,0 +1,31 @@
+.fill:focus,.fill:hover{box-shadow:inset 0 0 0 2em var(--hover)}
+
+.fill2:focus,.fill2:hover{box-shadow:inset 0 0 0 2em var(--hover)}
+
+.pulse:focus,.pulse:hover{-webkit-animation:pulse 1s;animation:pulse 1s;box-shadow:0 0 0 2em rgba(255,255,255,0)}
+@-webkit-keyframes pulse{0%{box-shadow:0 0 var(--hover)}}
+@keyframes pulse{0%{box-shadow:0 0 var(--hover)}}
+.close:focus,.close:hover{box-shadow:inset -3.5em 0 0 0 var(--hover),inset 3.5em 0 0 0 var(--hover)}
+.raise:focus,.raise:hover{box-shadow:0 .5em .5em -.4em var(--hover);-webkit-transform:translateY(-.25em);transform:translateY(-.25em)}
+.up:focus,.up:hover{box-shadow:inset 0 -3.25em 0 0 var(--hover)}
+.slide:focus,.slide:hover{box-shadow:inset 7.5em 0 0 0 var(--hover)}
+.offset{box-shadow:.3em .3em 0 0 var(--color),inset .3em .3em 0 0 var(--color)}
+.offset:focus,.offset:hover{box-shadow:0 0 var(--hover),inset 6em 3.5em 0 0 var(--hover)}
+.fill{--color:#6c757d;--hover:#6c757d}
+.pulse{--color:#ef6eae;--hover:#ef8f6e}
+.close{--color:#8d93ab;--hover:#8d93ab}
+.raise{--color:green;--hover:green}
+
+.fill2{--color:#28a745;--hover:#28a745}
+
+
+
+.up{--color:#28a745;--hover:#28a745}
+.slide{--color:#8d93ab;--hover:#8d93ab}
+.offset{--color:#50d890;--hover:#50d890}
+button{color:var(--color);transition:.25s}
+button:focus,button:hover{border-color:var(--hover);color:white}
+
+button{background:0 0;border:2px solid;font:inherit;line-height:0.4;margin:.4em;padding:0.8em 1.2em; margin-bottom: 10px;}
+h1{font-weight:300}
+code{color:#e4cb58;font:inherit}
