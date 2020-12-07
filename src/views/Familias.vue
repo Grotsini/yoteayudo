@@ -1,150 +1,99 @@
 <template>
 
-    <div>
+    <div id="app">
+            <v-app>
+                <v-main>
+                    <div id="content" class="p-4 p-md-5 pt-5">
+                        <h2 class="mb-4" align="center">Familias</h2>
+                    
+                        <div class="container-fluid">
+                        
+                            <div id="dataset_familias"  style="position:relative; height:270px; width: 100%; overflow:auto; display:block; text-align: center;">
+                                <h2></h2>
+                              <v-simple-table class="mt-5">
+                                    <template v-slot:default>
+                                    <table class="table table-hover">
+                                    <thead>
+                                      <tr class="light-blue darken-2">
+                                        <th class="white--text" style="align-items: center; text-align: center;">Código de Familia</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;">Nombre/Titular</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;">Apellidos</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;">Direccion</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;">Distrito</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;"># Integrantes</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;"># Contagiados</th>
+                                        <th class="white--text" style="align-items: center; text-align: center;">
+                                        Acciones
+                                      </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr v-for="familia in familias" :key="familia.id_familia">
+                                        <td>{{familia.id_familia}}</td>
+                                        <td>{{familia.nomb_titular}}</td>
+                                        <td>{{familia.apellidos}}</td>
+                                        <td>{{familia.direccion}}</td>
+                                        <td>{{familia.distrito}}</td>
+                                        <td>{{familia.numIntegrantes}}</td>
+                                        <td>{{familia.numContagiados}}</td>
+                                        <td>
+                                          <v-btn style="text-decoration:none" to="/detalles">Detalles</v-btn><Detalles id_familia="num_id_familia"></Detalles>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                    </table>
+                                </template>
+                            </v-simple-table>
+                            </div>
+                        </div>
+                    </div>
         
-        <div id="content" class="p-4 p-md-5 pt-5">
-          <h2 class="mb-4" align="center">Familias</h2>
-        
-          <div class="container">
-
-            <div th:if="${!list.isEmpty()}" style="position:relative; height:320px; width: 100%; overflow:auto; display:block; text-align: center;">
-              <h2></h2>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Apellidos</th>
-                    <th>Dirección</th>
-                    <th>Zona</th>
-                    <th># Integrantes</th>
-                    <th># Contagiados</th>
-                    <th></th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Jesus Alva Ramirez</td>
-                    <td>Av Los Cedros</td>
-                    <td>007</td>
-                    <td>5</td>
-                    <td>1</td>
-                   
-               <!--     <td><a class="btn btn-danger">Detalles</a></td>
-                    <td><a href="" class="btn btn-info">Detalles</a></td>  -->
-                    <td><router-link to="./detalles"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-
-                  <tr>
-                    <td>2</td>
-                    <td>Maria Quezada Ovedo</td>
-                    <td>Av Brasil 257</td>
-                    <td>002</td>
-                    <td>6</td>
-                    <td>1</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-
-                  <tr>
-                    <td>3</td>
-                    <td>Maria Quezada Ovedo</td>
-                    <td>Av Brasil 257</td>
-                    <td>004</td>
-                    <td>6</td>
-                    <td>1</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>001</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>006</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Martina Rojas Tineo</td>
-                    <td>Jr Huaylas 286</td>
-                    <td>Comas</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td><router-link to="./Detalles.vue"><img src="../../public/imagenes/mas.png" width="25px"></router-link></td>
-                  </tr>
-
-
-                </tbody>
-
-
-              </table>
-
-            </div>
-          </div>
-          
+                </v-main>
+            </v-app>
         </div>
-    </div>
-
 </template>
 
 <script>
 // @ is an alias to /src
-
+import axios from 'axios'
+import { mapState } from 'vuex'
+import VueAxios from 'vue-axios'
+import Detalles from './Detalles.vue'
+var urlPHP="http://localhost/php/crudDetalles.php";
+export default {
+  name:'Familia',
+  data(){
+        return{
+          familias:[],
+          familia: {
+            id_familia:null,
+            nomb_titular:'',
+            apellidos: '',
+            direccion:'',
+            distrito:'',
+            numIntegrantes:'',
+            numContagiados:''
+          },
+          num_id_familia:0
+        }
+      },
+      created(){
+          this.mostrar()
+          
+      },
+      methods:{
+          mostrar:function(){
+            axios.post(urlPHP, {opcion:'4'})
+            .then(response => {
+                this.familias = response.data;
+                console.log(this.familias);
+            })
+          },
+          send:function(id){
+            this.num_id_familia=id;
+            console.log(this.num_id_familia);
+          }
+          
+      }
+}
 </script>

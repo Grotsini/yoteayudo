@@ -20,7 +20,7 @@
                 <li><router-link to="/familias">Familias</router-link></li>
                 <li><router-link to="/entregas">Entregas</router-link></li>
                 <li><router-link to="/rutas">Rutas</router-link></li>
-                <li><a href="#">Grupos de asistencia</a></li>
+                <li><router-link to="/grupos">Grupos de Asistencia</router-link></li>
                 
             </ul>
             

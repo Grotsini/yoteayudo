@@ -1,0 +1,10 @@
+@font-face {
+    font-family:Flexo-Medium;
+    color: white;
+    src:url(../fonts/Flexo-Medium.OTF);
+}
+/*
+<td>
+                              <v-btn>Editar</v-btn>
+                              <v-btn name="delete" @click="deleteData(row.id_ruta)">Eliminar</v-btn>
+                            </td>*/

@@ -1,236 +1,297 @@
 <template>
+
     <div>
+    <v-app>
+      <v-main>
+            <div id="content" class="p-4 p-md-5 pt-5">
 
-        <div id="content" class="p-4 p-md-5 pt-5">
-      <h5 class="mb-4" style="margin-left: 15px;">Crear ruta</h5>
-
-
-
-      <div class="col-lg-6" style="float:left;" >
-        <div class="card">
-            <div class="card-header">
-                <strong>Datos</strong> 
-            </div>
-
-            <div class="card-body card-block">
-                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-                  <!-- DATOS -->
-
-                  <!-- aqui copiar campos de formulario -->
-
-
-                  <div class="form-group row" >
-                    <label class="col-form-label text-right col-lg-2 col-sm-12">Zona</label>
-                    <div class=" col-lg-5 col-md-9 col-sm-12">
-                     <select class="form-control" name="zona" id="zona" v-model="zona">
-                    <option v-for="zona of zonas" v-bind:key="zona.id">{{zona.desc_zona}}</option>
-                  </select>
-                    </div>
-                   </div>
-
-                   
-                   <div class="form-group row" >
-                     <label class="col-form-label text-right col-lg-2 col-sm-12" for="start">Fecha</label>
-                     <div class=" col-lg-4 col-md-9 col-sm-12">
-                     <input type="date" id="start" name="trip-start"
-                     value="02-10-20" placeholder="dd/mm/yyyy"
-                     min="01-10-20" max="01-10-21">
-                   </div>
-
-                   <label class="col-form-label text-right col-lg-2 col-sm-12" for="appt">Hora</label>
-                     <div class=" col-lg-4 col-md-9 col-sm-12">
-                     <input type="time" id="appt" name="appt"
-                     min="09:00" max="18:00" required>
-                    </div>
-
-                  </div>
-                    
-                   
-                    <div class="form-group row">
-                     <label class="col-form-label text-right col-lg-2 col-sm-12">Grupo</label>
-                     <div class=" col-lg-4 col-md-9 col-sm-12">
-                      <select class="form-control" name="grupo" id="grupo" v-model="grupo">
-                      <option v-for="grupo of grupos" v-bind:key="grupo.id">{{grupo.desc_grupo}}</option>
-                    </select>
-                     </div>
-
-                     <label class="col-form-label text-right col-lg-2 col-sm-12">Vehículo</label>
-                     <div class=" col-lg-4 col-md-9 col-sm-12">
-                      <select class="form-control" name="vehiculo" id="vehiculo" v-model="vehiculo">
-                      <option v-for="vehiculo of vehiculos" v-bind:key="vehiculo.id">{{vehiculo.placa}}</option>
-                    </select>
-                     </div>
-
-
-                    </div> 
-                    
-                    <br>
-
-                  
-
-
-
-
-
-
-                
-                  <!-- TABLA -->
-
-                  <div th:if="${!list.isEmpty()}" style="position:relative; height:200px; overflow:auto; display:block;">
-                    <v-simple-table class="mt-5">
-                      <template v-slot:default>
-                        <thead>
-                          <tr class="light-blue darken-2">
-                            <th class="white--text" style="align-items: center; text-align: center;">
-                              Id
-                            </th>
-                            <th class="white--text" style="align-items: center; text-align: center;">
-                              Familia</th>
-                          
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="familia in familias" :key="familia.id">
-                            <td style="align-items: center; text-align: center;">{{familia.id_familia}}</td>
-                            <td style="align-items: center; text-align: center;">{{familia.apellidos}}</td> 
-                          </tr>
-                        </tbody>
-                      </template>
-                    </v-simple-table>
-        
-                  </div>
-
-                </form>
-            </div>
-
-            <div  class="card-footer" style="text-align: center;">
-                <modalCancelar/>
-                <modalGuardar/>
-                
-
-            </div>
-            
-        
-        </div>
-
-  
-      </div>
-
-      
-      <div class="col-lg-6" style="float:left;" >
-        <div class="card">
-            <div class="card-header">
-                <strong>Mapa</strong> 
-            </div>
-
-            <div class="card-body card-block">
-                
               <div class="container">
+              <br>
+              <br>
+                <div>
+                  <v-card>
+                    <v-card-title>
+                      <v-text-field
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        label="Search"
+                        single-line
+                        hide-details
+                      ></v-text-field>
+                    </v-card-title>
+                    <v-data-table
+                      :headers="headers"
+                      :items="rutas"
+                      :search="search"
+                    >
+                    <template v-slot:top>
+                      <v-toolbar flat>
+                        <v-toolbar-title>Rutas</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          dark
+                          class="mb-2"
+                         color="green acent-2 white--text" style="float:right; text-decoration:none" @click="formNuevo()"
+                        >Crear Ruta</v-btn>
+                      </v-toolbar>
+                    </template>
+                    
+                      <template #item.acciones="{item}">
+                        <v-btn small class="mr-2" style="background: url('https://api.iconify.design/mdi-pencil-circle.svg') no-repeat center center / contain;" @click="formEditar(item.id_ruta, item.zona, item.fecha, item.hora, item.grupo, item.placa)"></v-btn>
+                        <v-btn small class="mr-2" style="background: url('https://api.iconify.design/el:trash-alt.svg') no-repeat center center / contain" name="delete" @click="deleteData(item.id_ruta)"></v-btn>
+                      </template>
+                    </v-data-table>
 
-                <!-- MAPA -->
-                <router-link to="./detalles" ><img src="../../public/imagenes/maps.png"  style="position: center; width: 630px;" ></router-link>
-
+                  </v-card>
+                  
+                </div>
               </div>
-
-
-
-
+              
             </div>
+        <!--<b-modal 
+        id="modal-crear" 
+        size="xl"
+        ref="modal"
+        title="Crear Ruta" 
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk">
+          <form ref="form" @submit.stop.prevent="handleSubmit">
+            <b-form-group
+              :state="zonaState"
+              label="Zona"
+              label-for="zona-input"
+              invalid-feedback="La zona es requerida"
+            >
+              <b-form-input
+                id="zona-input"
+                v-model="zona"
+                :state="zonaState"
+                required
+              ></b-form-input>
+            </b-form-group>
+          </form>
+        </b-modal>-->
+        <v-dialog v-model="dialog" max-width="1000">
+          <v-card>
+            <v-card-title class="blue-grey darken-1 white--text">Rutas</v-card-title>
+            <v-card-text>
+              <v-form>
+                <v-container>
+                  <v-row>
+                    <GmapMap :center="{ lat: 10, lng: 10 }">
+                      <GmapMarker
+                        v-for="(m, index) in markers"
+                        :key="index"
+                        :position="m.position"
+                        @click="center = m.position"
+                      />
+                    </GmapMap>
+                    <input v-model="ruta.id_ruta" hidden>
+                    <v-col class="d-flex" cols="12" sm="6">
+                      <v-select
+                        :items="rutas"
+                        label="Zona"
+                        v-model="ruta.zona"
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="12" md="4"><v-text-field v-model="ruta.zona" label="Ingresa una zona" solo required></v-text-field></v-col>
+                    <v-col cols="12" md="4"><v-text-field v-model="ruta.fecha" label="Ingresa una fecha" solo required></v-text-field></v-col>
+                    <v-col cols="12" md="4"><v-text-field v-model="ruta.hora" label="Ingresa la hora de partida" solo required></v-text-field></v-col>
+                    <v-col cols="12" md="4"><v-text-field v-model="ruta.grupo" label="Ingresa el grupo" solo required></v-text-field></v-col>
+                    <v-col cols="12" md="4"><v-text-field v-model="ruta.placa" label="Ingresa la placa del vehículo" solo required></v-text-field></v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="dialog=false">Cancelar</v-btn>
+              <v-btn @click="guardar" type="submit" color="indigo" dark>Guardar</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-main>
+      
+    </v-app>
+    
+    
+  </div>
 
-
-            
-
-
-        </div>
-        </div>
-        </div>
-    </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
 
-import modalGuardar from '@/components/modalGuardar.vue'
-import modalCancelar from '@/components/modalCancelar.vue'
-import axios from "axios";
-    //import vuetify from "Vuetify";
+
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import GoogleMapsLoader from 'google-maps'
+import 'vue-material-design-icons/styles.css'
+import { mdiDeleteOutline } from '@mdi/js';
+import MenuIcon from 'vue-material-design-icons/Menu.vue';
 var urlPHP="http://localhost/php/crudRutas.php";
+
+
 export default {
-    name:'App',
-    components: {
-      modalGuardar,
-      modalCancelar
-    },
-    data() {
-      return{
-        zonas:[],
-        zona: {
-          id_zona: null,
-          desc_zona:''
+      components: {
+        MenuIcon
+      },
+      data(){
+        return{
+          search: '',
+          headers: [
+            {
+              text: 'Id',
+              align: 'start',
+              value: 'id_ruta',
+            },
+            { text: 'Fecha', value: 'fecha' },
+            { text: 'Hora', value: 'hora' },
+            { text: 'Grupo', value: 'grupo' },
+            { text: 'Vehículo', value: 'placa' },
+            { text: 'Zona', value: 'zona' },
+            { text: 'Estado', value: 'estado_ruta' },
+            { text: 'Acciones', value: 'acciones', sortable: false }
+          ],
+          rutas:[],
+          map:null,
+          zona: '',
+          zonaState: null,
+          submittedNames: [],
+          dialog:false,
+          operacion:'',
+          ruta:{
+            id_ruta:null,
+            fecha:null,
+            hora:null,
+            grupo:'',
+            placa:'',
+            zona:'',
+            estado_ruta:''
+          }
+        }
+      },
+      created(){
+          this.mostrar()
+      },
+      mounted(){
+        this.map
+      },
+      methods:{
+          mostrar:function(){
+            axios.post(urlPHP, {opcion:'4'})
+            .then(response => {
+                this.rutas = response.data;
+                console.log(this.rutas);
+            })
+          },
+          añadirDatos: function(){
+            this.$root.$emit('CrearRuta');
+          },
+          openModel:function(){
+            application.first_name = '';
+            application.last_name = '';
+            application.actionButton = "Insert";
+            application.dynamicTitle = "Add Data";
+            application.myModel = true;
+          },
+          checkFormValidity() {
+            const valid = this.$refs.form.checkValidity()
+            this.zonaState = valid
+            return valid
+          },
+          resetModal() {
+            this.zona = ''
+            this.zonaState = null
+          },
+          handleOk(bvModalEvt) {
+            // Prevent modal from closing
+            bvModalEvt.preventDefault()
+            // Trigger submit handler
+            this.handleSubmit()
+          },
+          handleSubmit() {
+            // Exit when the form isn't valid
+            if (!this.checkFormValidity()) {
+              return
+            }
+            // Push the name to submitted names
+            this.submittedNames.push(this.zona)
+            // Hide the modal manually
+            this.$nextTick(() => {
+              this.$bvModal.hide('modal-prevent-closing')
+          })
+          
         },
-        grupos:[],
-        grupo:{
-          id_grupo: null,
-          desc_grupo: '',
-          numIntegrantes:null
+        deleteData: async function (id){
+            
+            /*this.alert({
+              title:'¿Desea eliminar este registro?',
+              confirmButtonText: `Confirmar`,
+              showCancelButton: True
+            }).then((result) => {
+              if(result.isConfirmed){
+                axios.post(urlPHP, {opcion:'3',id_ruta:id}).then(response => {
+                  this.mostrar();
+                });
+                this.alert('Eliminado Exitosamente','','success')
+              }
+              else if(result.isDenied){
+
+              }
+            });*/
+            
+            if(confirm("Are you sure you want to remove this data?"))
+            {
+              axios.post(urlPHP, {opcion:'3',id_ruta:id}).then(response => {
+                this.mostrar();
+              });
+            }
         },
-        vehiculos:[],
-        vehiculo:{
-          id_vehiculo: null,
-          placa: ''
+        crear:function(){
+          axios.post(urlPHP, {opcion:'1', fecha:this.ruta.fecha, hora:this.ruta.hora, grupo:this.ruta.grupo, placa:this.ruta.placa, zona:this.ruta.zona}).then(response => {
+            this.mostrar();
+
+          });
+          this.ruta.fecha = "";
+          this.ruta.hora = "";
+          this.ruta.grupo = "";
+          this.ruta.placa = "";
+          this.ruta.zona = "";
         },
-        familias:[],
-        familia:{
-          id_familia: null,
-          nomb_titular: '',
-          apellidos: '',
-          direccion: '',
-          distrito: '',
-          numIntegrantes:null,
-          numContagiados:null
+        editar:function(id, zona, fecha, hora, grupo, placa){
+          axios.post(urlPHP, {opcion:'2',id_ruta:this.ruta.id_ruta, fechaInicio:this.ruta.fecha + " "+ this.ruta.hora, fechaFin:this.ruta.fecha + " "+ this.ruta.hora,  })
+        },
+        guardar:function(){
+          if(this.operacion=='crear'){
+            this.crear();
+          }
+          if(this.operacion=='editar'){
+            this.editar();
+          }
+          this.dialog=false;
+        },
+        formNuevo:function(){
+          this.dialog=true;
+          this.operacion='crear';
+          this.ruta.fecha = "";
+          this.ruta.hora = "";
+          this.ruta.grupo = "";
+          this.ruta.placa = "";
+          this.ruta.zona = "";
+        },
+        formEditar:function(id, zona, fecha, hora, grupo, placa){
+          this.ruta.id_ruta = id;
+          this.ruta.zona = zona;
+          this.ruta.fecha = fecha;
+          this.ruta.hora = hora;
+          this.ruta.grupo = grupo;
+          this.ruta.placa = placa;
+          this.dialog = true;
+          this.operacion='editar';
         }
       }
-    },
-    created(){
-      this.mostrarZona()
-      this.mostrarGrupo()
-      this.mostrarVehiculo()
-      this.mostrarFamilia()
-    },
-    methods:{
-      mostrarZona(){  
-        axios.post(urlPHP, {opcion:'5'})
-        .then(response => {
-            this.zonas = response.data;
-            console.log(this.zonas);
-        })
-      },
-      mostrarGrupo(){  
-        axios.post(urlPHP, {opcion:'6'})
-        .then(response => {
-            this.grupos = response.data;
-            console.log(this.grupos);
-        })
-      },
-      mostrarVehiculo(){  
-        axios.post(urlPHP, {opcion:'7'})
-        .then(response => {
-            this.vehiculos = response.data;
-            console.log(this.vehiculos);
-        })
-      },
-      mostrarFamilia(){  
-        axios.post(urlPHP, {opcion:'8'})
-        .then(response => {
-            this.familias = response.data;
-            console.log(this.familias);
-        })
-      }
-    }
 }
-  
-  
-  
 </script>

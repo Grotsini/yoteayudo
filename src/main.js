@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import SweetAlertIcons from 'vue-sweetalert-icons';
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify';
@@ -7,6 +8,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(SweetAlertIcons);
 Vue.use(BootstrapVue);
 
 import 'bootstrap/dist/css/bootstrap.css'

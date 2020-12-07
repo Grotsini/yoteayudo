@@ -18,8 +18,8 @@
                     <p v-else class="text-center">La entrega se creó satisfactoriamente</p>
                 </div>
                 <div class="modal-footer">
-                    <router-link v-if="path==='/rutaCrear' || path==='/rutaEditar'" to="./rutas"><button type="button" class="btn btn-success btn-block" data-dismiss="modal" @click="showModal = false">Ok </button></router-link>
-                    <router-link v-else to="./entregas"><button type="button" class="btn btn-success btn-block" data-dismiss="modal" @click="showModal = false">Ok </button></router-link>
+                    <router-link v-if="path==='/rutaCrear' || path==='/rutaEditar'" to="./rutas"><button type="button" class="btn btn-success btn-block" data-dismiss="modal" @click="">Ok </button></router-link>
+                    <router-link v-else to="./entregas"><button type="button" class="btn btn-success btn-block" data-dismiss="modal" @click="">Ok </button></router-link>
                 </div>
                 </div>
             </div>
@@ -39,6 +39,11 @@ export default {
         return {
             showModal: false,
             path: location.pathname
+        }
+    },
+    methods:{
+        añadirDatos: function(){
+            this.$root.$emit('CrearRuta');
         }
     }
 }

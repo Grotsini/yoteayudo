@@ -24,11 +24,11 @@
                     <label class="col-form-label text-right col-lg-2 col-sm-12">Zona</label>
                     <div class=" col-lg-5 col-md-9 col-sm-12">
                      <select class="form-control" name="zona" id="zona" v-model="zona">
-                    <option v-for="zona of zonas" v-bind:key="zona.id">{{zona.id_zona}}</option>
+                    <option v-for="zona of zonas" v-bind:key="zona.id">{{zona.desc_zona}}</option>
                   </select>
                     </div>
                    </div>
-
+                  
                    
                    <div class="form-group row" >
                      <label class="col-form-label text-right col-lg-2 col-sm-12" for="start">Fecha</label>
@@ -50,131 +50,43 @@
                     <div class="form-group row">
                      <label class="col-form-label text-right col-lg-2 col-sm-12">Grupo</label>
                      <div class=" col-lg-4 col-md-9 col-sm-12">
-                      <select class="form-control select2" id="kt_select2_1" name="param">
-                       <option value="dist">x</option>
-                       <option value="dist">y</option>
-                       <option value="dist">z</option>
-                       
-                      </select>
+                      <select class="form-control" name="grupo" id="grupo" v-model="grupo">
+                      <option v-for="grupo of grupos" v-bind:key="grupo.id">{{grupo.desc_grupo}}</option>
+                    </select>
                      </div>
 
                      <label class="col-form-label text-right col-lg-2 col-sm-12">Vehículo</label>
                      <div class=" col-lg-4 col-md-9 col-sm-12">
-                      <select class="form-control select2" id="kt_select2_1" name="param">
-                       <option value="dist">a</option>
-                       <option value="dist">b</option>
-                       <option value="dist">c</option>
-                       <option value="dist">d</option>
-                       <option value="dist">e</option>
-                       
-                      </select>
+                      <select class="form-control" name="vehiculo" id="vehiculo" v-model="vehiculo">
+                      <option v-for="vehiculo of vehiculos" v-bind:key="vehiculo.id">{{vehiculo.placa}}</option>
+                    </select>
                      </div>
 
 
                     </div> 
                     
                     <br>
-
-                  
-
-
-
-
-
-
-                
-                  <!-- TABLA -->
-
                   <div th:if="${!list.isEmpty()}" style="position:relative; height:200px; overflow:auto; display:block;">
-                    <h2></h2>
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                        <th></th>
-                          <th>Id</th>
-                          <th>Familia</th>
-                          <th># Canastas</th>
-                          <th># Kits Médicos</th>
-                          <th>Dirección</th>
+                    <v-simple-table class="mt-5">
+                      <template v-slot:default>
+                        <thead>
+                          <tr class="light-blue darken-2">
+                            <th class="white--text" style="align-items: center; text-align: center;">
+                              Id
+                            </th>
+                            <th class="white--text" style="align-items: center; text-align: center;">
+                              Familia</th>
                           
-                        </tr>
-                      </thead>
-          
-                      <tbody>
-                        <tr>
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox" name="options[]" value="1">
-                            </span>
-
-                        </td>
-                          <td>1</td>
-                          <td>Alva Ramirez</td>
-                          <td>2</td>
-                          <td>1</td>
-                          <td>Av Los Cedros</td>
-                          
-                        </tr>
-          
-                        <tr>
-                        <td><span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox" name="options[]" value="1">
-                        </span></td>
-                          <td>2</td>
-                          <td>Quezada Ovedo</td>
-                          <td>1</td>
-                          <td>3</td>
-                          <td>Av Brasil 257</td>
-                        </tr>
-          
-                        <tr>
-                            <td><span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox" name="options[]" value="1">
-                            </span></td>
-                          <td>3</td>
-                          <td>Juarez Perez</td>
-                          <td>2</td>
-                          <td>4</td>
-                          <td>Jr Huaylas 286</td>
-                        </tr>
-
-                        <tr>
-                            <td><span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox" name="options[]" value="1">
-                            </span></td>
-                          <td>3</td>
-                          <td>Juarez Perez</td>
-                          <td>2</td>
-                          <td>4</td>
-                          <td>Jr Huaylas 286</td>
-                        </tr>
-
-                        <tr>
-                            <td><span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox" name="options[]" value="1">
-                            </span></td>
-                          <td>3</td>
-                          <td>Juarez Perez</td>
-                          <td>2</td>
-                          <td>4</td>
-                          <td>Jr Huaylas 286</td>
-                        </tr>
-
-
-                        <tr>
-                            <td><span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox" name="options[]" value="1">
-                            </span></td>
-                          <td>3</td>
-                          <td>Juarez Perez</td>
-                          <td>2</td>
-                          <td>4</td>
-                          <td>Jr Huaylas 286</td>
-                        </tr>
-          
-                      </tbody>
-        
-                    </table>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="familia in familias" :key="familia.id">
+                            <td style="align-items: center; text-align: center;">{{familia.id_familia}}</td>
+                            <td style="align-items: center; text-align: center;">{{familia.apellidos}}</td> 
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
         
                   </div>
 
@@ -188,7 +100,6 @@
 
             </div>
             
-        
         </div>
 
   
@@ -209,16 +120,7 @@
                 <router-link to="./detalles" ><img src="../../public/imagenes/maps.png"  style="position: center; width: 630px;" ></router-link>
 
               </div>
-
-
-
-
             </div>
-
-
-            
-
-
         </div>
         </div>
         </div>
@@ -231,16 +133,102 @@
 
 import modalGuardar from '@/components/modalGuardar.vue'
 import modalCancelar from '@/components/modalCancelar.vue'
+import axios from "axios";
+//Vuesax styles
+    //import vuetify from "Vuetify";
+var urlPHP="http://localhost/php/crudRutas.php";
+
+
 
 export default {
-  name: 'App',
-  components: {
-    modalGuardar,
-    modalCancelar
-  }
-}
-</script>
+    name:'App',
+    components: {
+      modalGuardar,
+      modalCancelar
+    },
+    data() {
+      return{
+        zonas:[],
+        zona: {
+          id_zona: null,
+          desc_zona:''
+        },
+        grupos:[],
+        grupo:{
+          id_grupo: null,
+          desc_grupo: '',
+          numIntegrantes:null
+        },
+        vehiculos:[],
+        vehiculo:{
+          id_vehiculo: null,
+          placa: ''
+        },
+        familias:[],
+        familia:{
+          id_familia: null,
+          nomb_titular: '',
+          apellidos: '',
+          direccion: '',
+          distrito: '',
+          numIntegrantes:null,
+          numContagiados:null
+        }
+      }
+    },
+    created(){
+      this.mostrarZona()
+      this.mostrarGrupo()
+      this.mostrarVehiculo()
+      this.mostrarFamilia()
+    },
+    methods:{
+      insertarGrupo: async function(){
 
-<style>
-    
-</style>
+      },
+      editarGrupo: async function(){
+
+      },
+      borrarGrupo: function(){
+
+      },
+      
+      mostrarZona(){  
+        axios.post(urlPHP, {opcion:'5'})
+        .then(response => {
+            this.zonas = response.data;
+            console.log(this.zonas);
+        })
+      },
+      mostrarGrupo(){  
+        axios.post(urlPHP, {opcion:'6'})
+        .then(response => {
+            this.grupos = response.data;
+            console.log(this.grupos);
+        })
+      },
+      mostrarVehiculo(){  
+        axios.post(urlPHP, {opcion:'7'})
+        .then(response => {
+            this.vehiculos = response.data;
+            console.log(this.vehiculos);
+        })
+      },
+      mostrarFamilia(){  
+        axios.post(urlPHP, {opcion:'8'})
+        .then(response => {
+            this.familias = response.data;
+            console.log(this.familias);
+        })
+      }
+    },
+    mounted() {
+      this.$root.$on('RutaCrear', () => {
+        this.insertarGrupo();
+      })
+    }
+}
+  
+  
+  
+</script>

@@ -83,6 +83,31 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/EntregaEditar.vue')
+  },
+  {
+    path: '/grupos',
+    name: 'Grupos',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Grupos.vue')
+  },
+  {
+    path: '/grupoCrear',
+    name: 'GrupoCrear',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/GrupoCrear.vue')
+  }
+  ,
+  {
+    path: '/grupoDetalles',
+    name: 'GrupoDetalles',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/GrupoDetalles.vue')
   }
 ]
 
