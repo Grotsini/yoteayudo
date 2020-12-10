@@ -97,9 +97,11 @@
                     <v-col class="d-flex" cols="12" sm="6">
                       <v-select
                         :items="zonas"
+                        :rules="rules.zona"
                         prepend-icon="mdi-map-marker"
                         label="Zona"
                         v-model="ruta.zona"
+                        required
                       ></v-select>
                     </v-col>
 
@@ -118,16 +120,20 @@
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
                             v-model="ruta.fecha"
+                            :rules="rules.fecha"
                             label="Fecha"
                             prepend-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            required
                           ></v-text-field>
                         </template>
                         <v-date-picker
                           v-model="ruta.fecha"
+                          :rules="rules.fecha"
                           @input="menu2 = false"
+                          required
                         ></v-date-picker>
                       </v-menu>
                     </v-col>
@@ -146,45 +152,55 @@
                         <template v-slot:activator="{ on, attrs }">
                           <v-text-field
                             v-model="ruta.hora"
+                            :rules="rules.hora"
                             label="Hora"
                             prepend-icon="access_time"
                             readonly
                             v-bind="attrs"
                             v-on="on"
+                            required
                           ></v-text-field>
                         </template>
                         <v-time-picker
                           v-if="menu3"
                           v-model="ruta.hora"
+                          :rules="rules.hora"
                           format="24hr"
                           use-seconds
                           full-width
                           @click:second="$refs.menu.save(ruta.hora)"
+                          required
                         ></v-time-picker>
                       </v-menu>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="6">
                       <v-select
                         :items="grupos"
+                        :rules="rules.grupo"
                         prepend-icon="mdi-account-multiple-plus"
                         label="Grupo"
                         v-model="ruta.grupo"
+                        required
                       ></v-select>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="6">
                       <v-select
                         :items="vehiculos"
+                        :rules="rules.vehiculo"
                         prepend-icon="mdi-car"
                         label="Vehículo"
                         v-model="ruta.placa"
+                        required
                       ></v-select>
                     </v-col>
                     <v-col class="d-flex" cols="12" sm="6">
                       <v-select
                         :items="estados"
+                        :rules="rules.estado"
                         label="Estado"
                         prepend-icon="mdi-cube-outline"
                         v-model="ruta.estado_ruta"
+                        required
                       ></v-select>
                     </v-col>
                     
@@ -233,6 +249,14 @@ export default {
       },
       data(){
         return{
+          rules: {
+            zona: [val => (val || '').length > 0 || 'This field is required'],
+            fecha: [val => (val || '').length > 0 || 'This field is required'],
+            hora: [val => (val || '').length > 0 || 'This field is required'],
+            grupo: [val => (val || '').length > 0 || 'This field is required'],
+            vehiculo: [val => (val || '').length > 0 || 'This field is required'],
+            estado: [val => (val || '').length > 0 || 'This field is required'],
+          },
           time: null,
           picker:null,
           menu3: false,
@@ -421,23 +445,27 @@ export default {
 
           var estado = true;
           console.log("Creacion de ruta" + this.ruta.placa);
-          for (let i in this.rutas){
-            console.log(this.rutas[i].placa);
-            if (this.estadoAnterior!='En Proceso'){
-              if (this.ruta.placa == this.rutas[i].placa){
-                if(this.rutas[i].estado_ruta == 'En Proceso'){
-                  this.$swal('Error','La ruta no puede ser incluida dado que el vehículo que se ha colocado está en uso','error');
-                  estado=true;
-                  return;
+          if (this.estadoAnterior!='En Proceso'){
+            for (let i in this.rutas){
+              console.log(this.rutas[i].placa);
+              console.log(this.estadoAnterior);
+              
+                if (this.ruta.placa == this.rutas[i].placa){
+                  if(this.rutas[i].estado_ruta == 'En Proceso'){
+                    this.$swal('Error','La ruta no puede ser incluida dado que el vehículo que se ha colocado está en uso','error');
+                    estado=true;
+                    return;
+                  }
+                  
                 }
-                
+              
+              
+              else{
+                estado = false;
+              }
               }
             }
-            
-            else{
-              estado = false;
-            }
-          }
+          
           if(estado==false){
             this.$swal({
                 title:'¿Desea editar este registro?',
